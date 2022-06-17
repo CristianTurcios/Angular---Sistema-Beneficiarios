@@ -40,18 +40,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     this.loading = true;
-    // this.authService.login(this.f.email.value, this.f.password.value).subscribe((response) => {
-    //   console.log('response', response);
-    //   const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    //   console.log('returnUrl', returnUrl);
-          
-    //   this.router.navigateByUrl(returnUrl);
-    // }, (error) => {
-    //   console.log('error', error);
-      
-    //   this.loading = false;
-    // });
-
     this.authService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe({

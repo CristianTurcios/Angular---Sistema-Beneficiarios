@@ -13,7 +13,7 @@ export class TablesComponent implements OnInit {
   error: boolean = false;
   errorMessage: string = '';
   page = 1;
-  pageSize = 2;
+  pageSize = 10;
 
   constructor(
     private beneficiariosService: BeneficiariosService
