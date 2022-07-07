@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { BeneficiariosService } from 'src/app/services/beneficiarios.service';
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 
 @Component({
   selector: 'app-tables',
@@ -16,6 +18,7 @@ export class TablesComponent implements OnInit {
   pageSize = 10;
 
   constructor(
+    private _router: Router,
     private beneficiariosService: BeneficiariosService
   ) { }
 
@@ -57,5 +60,26 @@ export class TablesComponent implements OnInit {
           }, 7000)
         }
       });
+  }
+
+  edit(id: number): void {    
+    this._router.navigate(['/edit-user-profile', id]);
+  }
+
+  exportData(): void {
+    const options = { 
+    fieldSeparator: ',',
+    quoteStrings: '"',
+    decimalseparator: '.',
+    showLabels: true, 
+    showTitle: true,
+    title: 'Lista Beneficiarios',
+    useBom: true,
+    noDownload: false,
+    headers: ["id", "Identidad", "Fecha de Nacimiento", "Telefono", "Departamento", "Municipio", "Aldea", "Barrio", "Fecha Creacion", "Fecha Edicion"],
+    useHeader: false,
+    nullToEmptyString: true,
+  };
+    new AngularCsv(this.beneficiarios, `Lista Beneficiarios - ${new Date().toDateString()}`, options);
   }
 }

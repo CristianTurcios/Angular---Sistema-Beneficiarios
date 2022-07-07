@@ -24,6 +24,10 @@ export class BeneficiariosService {
     return this.http.post(`${environment.apiUrl}/beneficiarios`, data);
   }
 
+  put(id: number, data): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/beneficiarios/${id}`, data);
+  }
+
   delete(id: number): Observable<any> {
     return this.http.delete(`${environment.apiUrl}/beneficiarios/${id}`,);
   }
