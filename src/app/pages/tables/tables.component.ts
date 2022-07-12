@@ -16,6 +16,8 @@ export class TablesComponent implements OnInit {
   errorMessage: string = '';
   page = 1;
   pageSize = 10;
+  headers: any;
+  countries: any;
 
   constructor(
     private _router: Router,
@@ -26,16 +28,17 @@ export class TablesComponent implements OnInit {
     this.getBeneficiariosList();
   }
 
+
   getBeneficiariosList(): void {
     this.beneficiariosService.get().pipe(first()).subscribe({
       next: (res) => {
         this.beneficiarios = res;
-        },
+      },
     });
   }
 
   getAge(userAge): number {
-    const currentYear =  new Date().getFullYear();
+    const currentYear = new Date().getFullYear();
     return currentYear - new Date(userAge).getFullYear();
   }
 
@@ -62,24 +65,43 @@ export class TablesComponent implements OnInit {
       });
   }
 
-  edit(id: number): void {    
+  edit(id: number): void {
     this._router.navigate(['/edit-user-profile', id]);
   }
 
   exportData(): void {
-    const options = { 
-    fieldSeparator: ',',
-    quoteStrings: '"',
-    decimalseparator: '.',
-    showLabels: true, 
-    showTitle: true,
-    title: 'Lista Beneficiarios',
-    useBom: true,
-    noDownload: false,
-    headers: ["id", "Identidad", "Fecha de Nacimiento", "Telefono", "Departamento", "Municipio", "Aldea", "Barrio", "Fecha Creacion", "Fecha Edicion"],
-    useHeader: false,
-    nullToEmptyString: true,
-  };
-    new AngularCsv(this.beneficiarios, `Lista Beneficiarios - ${new Date().toDateString()}`, options);
+    const options = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true,
+      showTitle: true,
+      title: 'Lista Beneficiarios',
+      useBom: true,
+      noDownload: false,
+      headers: ["id", "Identidad", "Nombre", "Apellido", "Fecha de Nacimiento", "Telefono", "Departamento", "Municipio", "Aldea", "Barrio", "Fecha Creacion", "Fecha Edicion"],
+      useHeader: false,
+      nullToEmptyString: true,
+    };
+
+    const ordered = this.beneficiarios.map((elem) => {
+      return {
+        id: elem.id,
+        identidad: elem.identidad,
+        name: elem.name,
+        lastName: elem.lastName,
+        bornDate: elem.bornDate,
+        phone: elem.phone,
+        department: elem.department,
+        municipality: elem.municipality,
+        village: elem.village,
+        barrio: elem.barrio,
+        createdAt: elem.createdAt,
+        updatedAt: elem.updatedAt
+      }
+    })
+
+    new AngularCsv(ordered, `Lista Beneficiarios - ${new Date().toDateString()}`, options);
   }
 }
+

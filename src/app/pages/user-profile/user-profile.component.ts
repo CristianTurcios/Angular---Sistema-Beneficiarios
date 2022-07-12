@@ -54,6 +54,8 @@ export class UserProfileComponent implements OnInit {
         Validators.maxLength(13),
         Validators.pattern(/^\d+$/)
       ])],
+      name: [''],
+      lastName: [''],
       bornDate: ['', Validators.required],
       phone: ['', Validators.compose([
         Validators.required,
@@ -74,6 +76,8 @@ export class UserProfileComponent implements OnInit {
       next: (res) => {
         this.form.patchValue({
           identidad: res.identidad,
+          name: res.name,
+          lastName: res.lastName,
           bornDate: new Date(res.bornDate),
           phone: res.phone,
           department: res.department,
