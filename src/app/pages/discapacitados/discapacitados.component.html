@@ -1,0 +1,106 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body"></div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="alert alert-success" role="alert" *ngIf="success">
+            <strong>Exito!</strong> Registro borrado con exito
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="error">
+            <strong>Error!</strong> {{errorMessage}}
+          </div>
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Lista Discapacitados</h3>
+            </div>
+            <div class="col-4 text-right">
+              <a class="btn btn-sm btn-primary" href="javascript:void(0)" (click)="generatePDF()">Planilla</a>
+              <a class="btn btn-sm btn-success" href="javascript:void(0)" (click)="exportData()">Exportar</a>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Identidad</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Fecha Nacimiento</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Discapacidad</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Municipio</th>
+                <th scope="col">Aldea</th>
+                <th scope="col">Barrio</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of discapacitados | slice: (page-1) * pageSize : page * pageSize">
+                <th scope="row">
+                  {{item.identidad}}
+                </th>
+                <td>
+                  {{item.name}}
+                </td>
+                <td>
+                  {{item.lastName}}
+                </td>
+                <td>
+                  {{item.bornDate}}
+                </td>
+                <td>
+                  {{getAge(item.bornDate)}}
+                </td>
+                <td>
+                  {{item.phone}}
+                </td>
+                <td>
+                  {{item.discapacidad}}
+                </td>
+                <td>
+                  {{item.department}}
+                </td>
+                <td>
+                  {{item.municipality}}
+                </td>
+                <td>
+                  {{item.village}}
+                </td>
+                <td>
+                  {{item.barrio}}
+                </td>
+                <td class="text-right">
+                  <div ngbDropdown placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="delete(item.id)">Borrar</a>
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="edit(item.id)">Editar</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize"
+            [boundaryLinks]="true" [collectionSize]="discapacitados?.length">
+            <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
