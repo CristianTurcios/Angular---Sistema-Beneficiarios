@@ -14,14 +14,16 @@ export const ROUTES: any[] = [{
     { path: '/beneficiarios', title: 'Registros', icon: 'ni-bullet-list-67 text-red', class: '', isCollapsed: true },
     { path: '/add-beneficiario', title: 'Nuevo Registro', icon: 'ni-single-02 text-yellow', class: '', isCollapsed: true },
   ],
-  title: 'Beneficiarios',
+  icon: 'ni ni-favourite-28',
+  title: 'Adulto Mayor',
   isCollapsed: true
 }, {
   submenu: [
     { path: '/discapacitados', title: 'Registros', icon: 'ni-bullet-list-67 text-red', class: '', isCollapsed: true },
-    { path: '/user-profile', title: 'Nuevo Registro', icon: 'ni-single-02 text-yellow', class: '', isCollapsed: true },
+    { path: '/add-discapacitado', title: 'Nuevo Registro', icon: 'ni-single-02 text-yellow', class: '', isCollapsed: true },
   ],
   title: 'Discapacitados',
+  icon: 'ni ni-world',
   isCollapsed: true
 }
 ];
