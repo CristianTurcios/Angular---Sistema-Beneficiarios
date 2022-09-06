@@ -5,7 +5,7 @@
   <div class="container-fluid d-flex align-items-center">
     <div class="row">
       <div class="col-lg-8 col-md-10">
-        <h1 class="display-2 text-white">Sistema Beneficiarios: Discapacitados</h1>
+        <h1 class="display-2 text-white">Sistema Beneficiarios: Persona con Discapacidad</h1>
       </div>
     </div>
   </div>
@@ -45,29 +45,13 @@
                     <input maxlength="255" type="text" id="input-username" class="form-control form-control-alternative"
                       placeholder="Nombre" formControlName="name">
                   </div>
-                  <!-- <p *ngIf="f.name.invalid && (f.name.touched || f.name.dirty) && f.name.value !== ''"
-                    class="msg-error">
-                    No se permiten letras
-                  </p> -->
-                  <!-- <p *ngIf="f.name.invalid && (f.name.touched || f.name.dirty) && f.name.value === '' || submitted && f.name.invalid"
-                    class="msg-error">
-                    * Requerido
-                  </p> -->
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Apellido</label>
-                    <input maxlength="255" type="text" id="input-last-name" class="form-control form-control-alternative"
-                      placeholder="Apellido" formControlName="lastName">
+                    <input maxlength="255" type="text" id="input-last-name"
+                      class="form-control form-control-alternative" placeholder="Apellido" formControlName="lastName">
                   </div>
-                  <!-- <p *ngIf="f.phone.invalid && (f.phone.touched || f.phone.dirty) && f.phone.value !== ''"
-                    class="msg-error">
-                    No se permiten letras
-                  </p>
-                  <p *ngIf="f.phone.invalid && (f.phone.touched || f.phone.dirty) && f.phone.value === '' || submitted && f.phone.invalid"
-                    class="msg-error">
-                    * Requerido
-                  </p> -->
                 </div>
               </div>
               <div class="row">
@@ -114,7 +98,7 @@
                       <input class="form-control form-control-alternative" placeholder="Selecciona una fecha" name="dp"
                         [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"
                         formControlName="bornDate" [minDate]="{year: 1910, month: 1, day: 1}"
-                        [maxDate]="{year: supportedYear, month: 12, day: 31}" />
+                         />
                     </div>
                   </div>
                   <p *ngIf="f.bornDate.invalid && (f.bornDate.touched || f.bornDate.dirty) && f.bornDate.value === '' || submitted && f.bornDate.invalid"
@@ -129,18 +113,85 @@
                   <div class="form-group">
                     <label class="form-control-label" for="input-discapacidad">Discapacidad</label>
                     <input id="input-discapacidad" class="form-control form-control-alternative" type="text"
-                      placeholder="Discapacidad"
-                      formControlName="discapacidad">
+                      placeholder="Discapacidad" formControlName="discapacidad">
                     <p *ngIf="f.discapacidad.invalid && (f.discapacidad.touched || f.discapacidad.dirty) && f.discapacidad.value === '' || submitted && f.discapacidad.invalid"
                       class="msg-error">
                       * Requerido
                     </p>
                   </div>
                 </div>
-                  <!--  -->
+                <!--  -->
               </div>
             </div>
             <hr class="my-4" />
+
+            <!-- Persona a cargo -->
+            <h6 class="heading-small text-muted mb-4">Información Persona a cargo (Opcional)</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Nombre Completo</label>
+                    <input maxlength="255" type="text" id="input-username" class="form-control form-control-alternative"
+                      placeholder="Nombre Completo" formControlName="fullNamePersonInCharge">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">No. Identidad</label>
+                    <input maxlength="13" type="text" id="input-username" class="form-control form-control-alternative"
+                      placeholder="000000000000" formControlName="identidadPersonInCharge">
+                  </div>
+                  <p *ngIf="f.identidadPersonInCharge.invalid && (f.identidadPersonInCharge.touched || f.identidadPersonInCharge.dirty) && f.identidadPersonInCharge.value !== ''"
+                    class="msg-error">
+                    No se permiten letras
+                  </p>
+                  <!-- <p *ngIf="f.identidad.invalid && (f.identidad.touched || f.identidad.dirty) && f.identidad.value === '' || submitted && f.identidad.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Telefono</label>
+                    <input maxlength="8" type="text" id="input-last-name" class="form-control form-control-alternative"
+                      placeholder="00000000" formControlName="phonePersonInCharge">
+                  </div>
+                  <p *ngIf="f.phonePersonInCharge.invalid && (f.phonePersonInCharge.touched || f.phonePersonInCharge.dirty) && f.phonePersonInCharge.value !== ''"
+                    class="msg-error">
+                    No se permiten letras
+                  </p>
+                  <!-- <p *ngIf="f.phone.invalid && (f.phone.touched || f.phone.dirty) && f.phone.value === '' || submitted && f.phone.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p> -->
+                </div>
+                <div class="col-lg-6">
+                  <!--  -->
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-date">Fecha de Nacimiento</label>
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <input class="form-control form-control-alternative" placeholder="Selecciona una fecha" name="dp1"
+                        [(ngModel)]="model1" ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" type="text" formControlName="bornDatePersonInCharge"
+                        [minDate]="{year: 1910, month: 1, day: 1}" [maxDate]="{year: supportedYear, month: 12, day: 31}" />
+                    </div>
+                  </div>
+                  <!-- <p *ngIf="f.bornDate.invalid && (f.bornDate.touched || f.bornDate.dirty) && f.bornDate.value === '' || submitted && f.bornDate.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p> -->
+                  <p *ngIf="isInvalidYear" class="msg-error">
+                    * Fecha no permitida
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <!-- Address -->
             <h6 class="heading-small text-muted mb-4">Dirección</h6>
             <div class="pl-lg-4">
