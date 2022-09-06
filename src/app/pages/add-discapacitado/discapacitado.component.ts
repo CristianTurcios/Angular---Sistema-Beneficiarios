@@ -143,7 +143,6 @@ export class DiscapacitadoComponent implements OnInit {
     const bornDate = `${this.model.year}-${this.model.month}-${this.model.day}`;
 
     let bornDatePersonInCharge = ''
-    console.log(this.model1);
     if(this.model1) {
       bornDatePersonInCharge = `${this.model1.year}-${this.model1.month}-${this.model1.day}`;
     }
