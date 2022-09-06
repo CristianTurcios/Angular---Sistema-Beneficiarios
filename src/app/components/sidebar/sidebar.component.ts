@@ -22,7 +22,7 @@ export const ROUTES: any[] = [{
     { path: '/discapacitados', title: 'Registros', icon: 'ni-bullet-list-67 text-red', class: '', isCollapsed: true },
     { path: '/add-discapacitado', title: 'Nuevo Registro', icon: 'ni-single-02 text-yellow', class: '', isCollapsed: true },
   ],
-  title: 'Discapacitados',
+  title: 'Personas con Discapacidad',
   icon: 'ni ni-world',
   isCollapsed: true
 }

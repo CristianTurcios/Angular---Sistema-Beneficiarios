@@ -20,6 +20,7 @@ export class DiscapacitadoComponent implements OnInit {
   department: string = '';
   isInvalidYear: boolean = false;
   model: NgbDateStruct;
+  model1: NgbDateStruct;
   supportedYear: number;
   success: boolean = false;
   error: boolean = false;
@@ -67,6 +68,10 @@ export class DiscapacitadoComponent implements OnInit {
       municipality: ['', Validators.required],
       village: ['', Validators.required],
       barrio: ['', Validators.required],
+      identidadPersonInCharge: [''],
+      fullNamePersonInCharge: [''],
+      phonePersonInCharge: [''],
+      bornDatePersonInCharge: [''],
     });
   }
 
@@ -86,10 +91,21 @@ export class DiscapacitadoComponent implements OnInit {
           municipality: res.municipality,
           village: res.village,
           barrio: res.barrio,
+          identidadPersonInCharge: res.identidadPersonInCharge,
+          fullNamePersonInCharge: res.fullNamePersonInCharge,
+          phonePersonInCharge: res.phonePersonInCharge,
+          bornDatePersonInCharge: res.bornDatePersonInCharge,
         });
         const [year, month, day] = res.bornDate.split('-');
         const obj = { year: parseInt(year), month: parseInt(month), day: parseInt(day.split(' ')[0].trim()) };
         this.model = obj;
+
+        if (res.bornDatePersonInCharge) {
+          const [year1, month1, day1] = res.bornDatePersonInCharge.split('-');
+          const obj1 = { year: parseInt(year1), month: parseInt(month1), day: parseInt(day1.split(' ')[0].trim()) };
+          this.model1 = obj1;
+        }
+
         this.loading = false;
       },
       error: (err) => {
@@ -126,14 +142,19 @@ export class DiscapacitadoComponent implements OnInit {
 
     const bornDate = `${this.model.year}-${this.model.month}-${this.model.day}`;
 
-    if (year - this.model.year < 18) {
+    let bornDatePersonInCharge = ''
+    if(this.model1) {
+      bornDatePersonInCharge = `${this.model1.year}-${this.model1.month}-${this.model1.day}`;
+    }
+
+    if (year - this.model1?.year < 18) {
       this.isInvalidYear = true;
       return;
     }
 
     this.loading = true;
     this.form.value.bornDate = bornDate;
-
+    this.form.value.bornDatePersonInCharge = bornDatePersonInCharge;
 
     if(!this.isEditMode) {
       this.discapacitadosService.post(this.form.value)

@@ -79,10 +79,10 @@ export class DiscapacitadosComponent implements OnInit {
       decimalseparator: '.',
       showLabels: true,
       showTitle: true,
-      title: 'Lista Discapacitados',
+      title: 'Lista Personas con Discapacidad',
       useBom: true,
       noDownload: false,
-      headers: ['id', 'Identidad', 'Nombre', 'Apellido', 'Fecha de Nacimiento', 'Telefono', 'Discapacidad', 'Departamento', 'Municipio', 'Aldea', 'Barrio', 'Fecha Creacion', 'Fecha Edicion'],
+      headers: ['id', 'Identidad', 'Nombre', 'Apellido', 'Fecha de Nacimiento', 'Telefono', 'Discapacidad', 'Departamento', 'Municipio', 'Aldea', 'Barrio', 'Identidad Persona a Cargo', 'Nombre Persona a Cargo', 'Telefono Persona a Cargo' , 'Fecha Creacion', 'Fecha Edicion'],
       useHeader: false,
       nullToEmptyString: true,
     };
@@ -100,11 +100,14 @@ export class DiscapacitadosComponent implements OnInit {
         municipality: elem.municipality,
         village: elem.village,
         barrio: elem.barrio,
+        identidadPersonInCharge: elem.identidadPersonInCharge,
+        fullNamePersonInCharge: elem.fullNamePersonInCharge,
+        phonePersonInCharge: elem.phonePersonInCharge,
         createdAt: elem.createdAt,
         updatedAt: elem.updatedAt
       }
     }).sort((prev, post) => prev.id > post.id ? 1 : -1);
-    new AngularCsv(ordered, `Lista Discapacitados - ${new Date().toLocaleDateString()}`, options);
+    new AngularCsv(ordered, `Lista Personas Con Discapacidad - ${new Date().toLocaleDateString()}`, options);
   }
 
   generatePDF() {
@@ -154,7 +157,7 @@ export class DiscapacitadosComponent implements OnInit {
               stack: [
                 'Secretaria de Desarrollo Social',
                 { text: 'PRONASOL-H', style: 'subheader' },
-                { text: 'BENEFICIARIOS CON DISCAPACIDAD', style: 'subheader' },
+                { text: 'LISTA PERSONAS CON DISCAPACIDAD', style: 'subheader' },
               ],
               style: 'header',
               width: '*'
@@ -203,7 +206,7 @@ export class DiscapacitadosComponent implements OnInit {
       }
     }
 
-    const fileName = `Planilla Discapacitados - ${new Date().toLocaleDateString()}`;
+    const fileName = `Planilla Personas Con Discapacidad - ${new Date().toLocaleDateString()}`;
     pdfmake.createPdf(document).download(fileName);
   }
 
