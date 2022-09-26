@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -12,6 +13,7 @@ import { TablesComponent } from '../../pages/beneficiarios/tables.component';
 import { DiscapacitadosComponent } from '../../pages/discapacitados/discapacitados.component';
 import { DiscapacitadoComponent } from '../../pages/add-discapacitado/discapacitado.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ListFilterPipe } from 'src/app/pipes/list-filter.pipe';
 
 @NgModule({
   imports: [
@@ -30,7 +32,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     // IconsComponent,
     // MapsComponent,
     DiscapacitadosComponent,
-    DiscapacitadoComponent
+    DiscapacitadoComponent,
+    ListFilterPipe
   ]
 })
 

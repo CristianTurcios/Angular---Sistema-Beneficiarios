@@ -14,6 +14,7 @@ pdfmake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class TablesComponent implements OnInit {
   beneficiarios: any;
+  allBeneficiarios: any;
   success: boolean = false;
   error: boolean = false;
   errorMessage: string = '';
@@ -21,6 +22,7 @@ export class TablesComponent implements OnInit {
   pageSize = 10;
   headers: any;
   countries: any;
+  searchTerm: string;
 
   constructor(
     private _router: Router,
@@ -36,8 +38,14 @@ export class TablesComponent implements OnInit {
     this.beneficiariosService.get().pipe(first()).subscribe({
       next: (res) => {
         this.beneficiarios = res;
+        this.allBeneficiarios = this.beneficiarios;
+
       },
     });
+  }
+
+  search(value: string): void {
+    this.beneficiarios = this.allBeneficiarios.filter((val) => val.identidad.toLowerCase().includes(value));
   }
 
   getAge(userAge): number {

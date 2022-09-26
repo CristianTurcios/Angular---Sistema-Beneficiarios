@@ -14,6 +14,7 @@ pdfmake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class DiscapacitadosComponent implements OnInit {
   discapacitados: any = [];
+  allDiscapacitados: any = [];
   success: boolean = false;
   error: boolean = false;
   errorMessage: string = '';
@@ -21,11 +22,12 @@ export class DiscapacitadosComponent implements OnInit {
   pageSize = 10;
   headers: any;
   countries: any;
+  searchTerm: string;
 
   constructor(
     private _router: Router,
     private discapacitadosService: DiscapacitadosService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getDiscapacitadosList();
@@ -36,8 +38,13 @@ export class DiscapacitadosComponent implements OnInit {
     this.discapacitadosService.get().pipe(first()).subscribe({
       next: (res) => {
         this.discapacitados = res;
+        this.allDiscapacitados = this.discapacitados;
       },
     });
+  }
+
+  search(value: string): void {
+    this.discapacitados = this.allDiscapacitados.filter((val) => val.identidad.toLowerCase().includes(value));
   }
 
   getAge(userAge): number {

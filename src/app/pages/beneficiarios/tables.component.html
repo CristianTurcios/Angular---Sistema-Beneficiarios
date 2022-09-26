@@ -116,6 +116,12 @@
               <a class="btn btn-sm btn-primary" href="javascript:void(0)" (click)="generatePDF()">Planilla</a>
               <a class="btn btn-sm btn-success" href="javascript:void(0)" (click)="exportData()">Exportar</a>
             </div>
+            <form>
+              <div class="form-group mt-4">
+                <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
+                  (input)="search($event.target.value)" placeholder="Buscar por identidad..." />
+              </div>
+            </form>
           </div>
           <!--  -->
 
@@ -142,7 +148,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of beneficiarios | slice: (page-1) * pageSize : page * pageSize">
+              <tr *ngFor="let item of beneficiarios | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize">
                 <!-- {{item | json}} -->
                 <th scope="row">
                   <!-- <div class="media align-items-center"> -->
@@ -268,7 +274,7 @@
             </ul>
           </nav> -->
           <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize"
-            [boundaryLinks]="true" [collectionSize]="beneficiarios?.length">
+            [boundaryLinks]="true" [collectionSize]="beneficiarios?.length" [maxSize]="5">
             <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
           </ngb-pagination>
         </div>
