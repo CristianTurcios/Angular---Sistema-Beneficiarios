@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
+// import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 // import { IconsComponent } from '../../pages/icons/icons.component';
 // import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/add-beneficiario/user-profile.component';
@@ -9,7 +9,7 @@ import { DiscapacitadosComponent } from '../../pages/discapacitados/discapacitad
 import { DiscapacitadoComponent } from '../../pages/add-discapacitado/discapacitado.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',          component: DashboardComponent },
+    // { path: 'dashboard',          component: DashboardComponent },
     { path: 'add-beneficiario',       component: UserProfileComponent },
     { path: 'edit-user-profile/:id',   component: UserProfileComponent },
     { path: 'beneficiarios',             component: TablesComponent },

@@ -95,6 +95,7 @@
         <li class="nav-item" *ngFor="let item of menuItems">
           <a class="nav-link" (click)="item.isCollapsed = !item.isCollapsed" href="javascript:void(0)">
             <i [class]="item.icon"></i>
+            <!-- <fa-icon [icon]="item.icon"></fa-icon> -->
             {{item.title}}
           </a>
           <div #collapse="ngbCollapse" [(ngbCollapse)]="item.isCollapsed">

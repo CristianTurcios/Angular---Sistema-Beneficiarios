@@ -3,9 +3,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ClipboardModule } from 'ngx-clipboard';
+// import { ClipboardModule } from 'ngx-clipboard';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
+// import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 // import { IconsComponent } from '../../pages/icons/icons.component';
 // import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/add-beneficiario/user-profile.component';
@@ -22,11 +22,11 @@ import { ListFilterPipe } from 'src/app/pipes/list-filter.pipe';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule,
+    // ClipboardModule,
     ReactiveFormsModule,
   ],
   declarations: [
-    DashboardComponent,
+    // DashboardComponent,
     UserProfileComponent,
     TablesComponent,
     // IconsComponent,
