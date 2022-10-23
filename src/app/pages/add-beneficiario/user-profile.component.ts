@@ -26,6 +26,7 @@ export class UserProfileComponent implements OnInit {
   errorMessage: string = '';
   routerSubscription: Observable<any>;
   isEditMode: boolean = false;
+  TARGET_AGE: number = 65;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,7 +36,7 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.supportedYear = new Date().getFullYear() - 70;
+    this.supportedYear = new Date().getFullYear() - this.TARGET_AGE;
     const userId = this.route.snapshot.paramMap?.get('id');
 
     if (userId) {
@@ -124,7 +125,7 @@ export class UserProfileComponent implements OnInit {
 
     const bornDate = `${this.model.year}-${this.model.month}-${this.model.day}`;
 
-    if (year - this.model.year < 70) {
+    if (year - this.model.year < this.TARGET_AGE) {
       this.isInvalidYear = true;
       return;
     }
