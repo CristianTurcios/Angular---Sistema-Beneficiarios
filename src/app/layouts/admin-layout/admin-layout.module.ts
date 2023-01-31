@@ -14,6 +14,7 @@ import { DiscapacitadosComponent } from '../../pages/discapacitados/discapacitad
 import { DiscapacitadoComponent } from '../../pages/add-discapacitado/discapacitado.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListFilterPipe } from 'src/app/pipes/list-filter.pipe';
+import { UsersComponent } from '../../pages/users/users.component';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { ListFilterPipe } from 'src/app/pipes/list-filter.pipe';
     // MapsComponent,
     DiscapacitadosComponent,
     DiscapacitadoComponent,
+    UsersComponent,
     ListFilterPipe
   ]
 })

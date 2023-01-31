@@ -25,7 +25,15 @@ export const ROUTES: any[] = [{
   title: 'Personas con Discapacidad',
   icon: 'ni ni-world',
   isCollapsed: true
-}
+},
+  {
+    submenu: [
+      { path: '/users', title: 'Registros', icon: 'ni-bullet-list-67 text-red', class: '', isCollapsed: true },
+    ],
+    title: 'Usuarios',
+    icon: 'ni ni-circle-08 text-pink',
+    isCollapsed: true
+  }
 ];
 
 @Component({

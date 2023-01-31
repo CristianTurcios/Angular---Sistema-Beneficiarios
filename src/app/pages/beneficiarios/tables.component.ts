@@ -90,7 +90,7 @@ export class TablesComponent implements OnInit {
       title: 'Lista Beneficiarios',
       useBom: true,
       noDownload: false,
-      headers: ['id', 'Identidad', 'Nombre', 'Apellido', 'Fecha de Nacimiento', 'Telefono', 'Departamento', 'Municipio', 'Aldea', 'Barrio', 'Fecha Creacion', 'Fecha Edicion'],
+      headers: ['id', 'Identidad', 'Nombre', 'Apellido', 'Fecha de Nacimiento', 'Sexo', 'Telefono', 'Departamento', 'Municipio', 'Aldea', 'Barrio', 'Fecha Creacion', 'Fecha Edicion'],
       useHeader: false,
       nullToEmptyString: true,
     };
@@ -102,6 +102,7 @@ export class TablesComponent implements OnInit {
         name: elem.name,
         lastName: elem.lastName,
         bornDate: elem.bornDate,
+        sex: elem.sex,
         phone: elem.phone,
         department: elem.department,
         municipality: elem.municipality,

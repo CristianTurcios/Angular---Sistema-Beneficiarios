@@ -122,6 +122,23 @@
                 </div>
                 <!--  -->
               </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Sexo</label>
+                    <select formControlName="sex" id="input-sex" class="form-control form-control-alternative">
+                      <option value="" selected disabled hidden>Sexo</option>
+                      <option value="Femenino">Femenino</option>
+                      <option value="Masculino">Masculino</option>
+                      <option value="Otros">Otros</option>
+                    </select>
+                    <p *ngIf="f.sex.invalid && (f.sex.touched || f.sex.dirty) && f.sex.value === '' || submitted && f.sex.invalid"
+                      class="msg-error">
+                      * Requerido
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
             <hr class="my-4" />
 

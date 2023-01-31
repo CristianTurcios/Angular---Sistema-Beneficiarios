@@ -67,6 +67,7 @@ export class UserProfileComponent implements OnInit {
       municipality: ['', Validators.required],
       village: ['', Validators.required],
       barrio: ['', Validators.required],
+      sex: ['', Validators.required]
     });
   }
 
@@ -85,6 +86,7 @@ export class UserProfileComponent implements OnInit {
           municipality: res.municipality,
           village: res.village,
           barrio: res.barrio,
+          sex: res.sex
         });
         const [year, month, day] = res.bornDate.split('-');
         const obj = { year: parseInt(year), month: parseInt(month), day: parseInt(day.split(' ')[0].trim()) };

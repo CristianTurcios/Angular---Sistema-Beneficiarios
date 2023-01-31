@@ -89,7 +89,7 @@ export class DiscapacitadosComponent implements OnInit {
       title: 'Lista Personas con Discapacidad',
       useBom: true,
       noDownload: false,
-      headers: ['id', 'Identidad', 'Nombre', 'Apellido', 'Fecha de Nacimiento', 'Telefono', 'Discapacidad', 'Departamento', 'Municipio', 'Aldea', 'Barrio', 'Identidad Persona a Cargo', 'Nombre Persona a Cargo', 'Telefono Persona a Cargo' , 'Fecha Creacion', 'Fecha Edicion'],
+      headers: ['id', 'Identidad', 'Nombre', 'Apellido', 'Fecha de Nacimiento', 'Sexo', 'Telefono', 'Discapacidad', 'Departamento', 'Municipio', 'Aldea', 'Barrio', 'Identidad Persona a Cargo', 'Nombre Persona a Cargo', 'Telefono Persona a Cargo' , 'Fecha Creacion', 'Fecha Edicion'],
       useHeader: false,
       nullToEmptyString: true,
     };
@@ -101,6 +101,7 @@ export class DiscapacitadosComponent implements OnInit {
         name: elem.name,
         lastName: elem.lastName,
         bornDate: elem.bornDate,
+        sex: elem.sex,
         phone: elem.phone,
         discapacidad: elem.discapacidad,
         department: elem.department,

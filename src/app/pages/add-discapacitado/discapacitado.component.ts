@@ -72,6 +72,7 @@ export class DiscapacitadoComponent implements OnInit {
       fullNamePersonInCharge: [''],
       phonePersonInCharge: [''],
       bornDatePersonInCharge: [''],
+      sex: ['', Validators.required]
     });
   }
 
@@ -95,6 +96,7 @@ export class DiscapacitadoComponent implements OnInit {
           fullNamePersonInCharge: res.fullNamePersonInCharge,
           phonePersonInCharge: res.phonePersonInCharge,
           bornDatePersonInCharge: res.bornDatePersonInCharge,
+          sex: res.sex
         });
         const [year, month, day] = res.bornDate.split('-');
         const obj = { year: parseInt(year), month: parseInt(month), day: parseInt(day.split(' ')[0].trim()) };
