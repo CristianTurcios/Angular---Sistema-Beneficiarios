@@ -27,12 +27,7 @@
     "@popperjs/core": "^2.11.4",
     "angular-csv-ext": "^1.0.5",
     "bootstrap": "4.6.1",
-    "chart.js": "2.9.4",
-    "clipboard": "2.0.10",
     "core-js": "3.21.1",
-    "ngx-clipboard": "15.0.1",
-    "ngx-toastr": "14.2.2",
-    "nouislider": "15.5.1",
     "pdfmake": "^0.2.5",
     "rxjs": "^7.5.5",
     "zone.js": "~0.11.5"

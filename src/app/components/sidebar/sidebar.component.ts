@@ -2,13 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
-declare interface RouteInfo {
-  path: string;
-  title: string;
-  icon: string;
-  class: string;
-  isCollapsed?: boolean,
-}
 export const ROUTES: any[] = [{
   submenu: [
     { path: '/beneficiarios', title: 'Registros', icon: 'ni-bullet-list-67 text-red', class: '', isCollapsed: true },

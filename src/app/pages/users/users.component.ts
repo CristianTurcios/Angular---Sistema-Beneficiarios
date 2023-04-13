@@ -24,17 +24,21 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getUsersList();
+    this.getUsersList(this.page, this.pageSize);
   }
 
-  getUsersList(): void {
-    this.usersService.get(this.page, this.pageSize).pipe(first()).subscribe({
+  getUsersList(page: number, pageSize: number): void {
+    this.usersService.get(page, pageSize).pipe(first()).subscribe({
       next: (res) => {
         this.users = res.users;
         this.allUsers = this.users;
         this.collectionSize = res.totalItems;
       },
     });
+  }
+
+  pageChange(): void {
+    this.getUsersList(this.page - 1, this.pageSize);
   }
 
   search(value: string): void {
