@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getUsersList(this.page, this.pageSize);
+    // this.getUsersList(this.page, this.pageSize);
   }
 
   getUsersList(page: number, pageSize: number): void {

@@ -11,6 +11,8 @@ import { DiscapacitadoComponent } from '../../pages/add-discapacitado/discapacit
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListFilterPipe } from 'src/app/pipes/list-filter.pipe';
 import { UsersComponent } from '../../pages/users/users.component';
+import { BecasComponent } from '../../pages/becas/becas.component';
+import { BecaComponent } from '../../pages/add-beca/beca.component';
 
 @NgModule({
   imports: [
@@ -27,7 +29,9 @@ import { UsersComponent } from '../../pages/users/users.component';
     DiscapacitadosComponent,
     DiscapacitadoComponent,
     UsersComponent,
-    ListFilterPipe
+    ListFilterPipe,
+    BecasComponent,
+    BecaComponent
   ]
 })
 

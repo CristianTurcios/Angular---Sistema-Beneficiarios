@@ -23,6 +23,16 @@ export const ROUTES: any[] = [{
 },
 {
   submenu: [
+    { path: '/becas', title: 'Registros', icon: 'ni-bullet-list-67 text-red', class: '', isCollapsed: true },
+    { path: '/add-beca', title: 'Nuevo Registro', icon: 'ni-single-02 text-yellow', class: '', isCollapsed: true },
+  ],
+  title: 'Becas',
+  icon: 'ni ni-hat-3',
+  isCollapsed: true,
+  requiredAdmin: false,
+},
+{
+  submenu: [
     { path: '/users', title: 'Registros', icon: 'ni-bullet-list-67 text-red', class: '', isCollapsed: true },
   ],
   title: 'Usuarios',
@@ -48,7 +58,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     const isAdmin = this.authService.userValue.isAdmin;
-    
+
     this.menuItems = ROUTES.filter((menuItem) => {
       if (menuItem.requiredAdmin && isAdmin) {
         return menuItem

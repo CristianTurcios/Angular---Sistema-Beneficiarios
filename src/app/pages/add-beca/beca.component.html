@@ -1,0 +1,476 @@
+<div class="header pb-8 pt-5 pt-lg-5 d-flex align-items-center">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-8 col-md-10">
+        <h1 class="display-2 text-white">Sistema Beneficiarios: Becas</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="loading">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden"></span>
+  </div>
+</div>
+
+<div class="container-fluid mt--7" *ngIf="!loading">
+  <div class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <div class="alert alert-success" role="alert" *ngIf="success">
+                <strong>Exito!</strong> Registro guardado con exito
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="error">
+                <strong>Error!</strong> {{errorMessage}}
+              </div>
+              <h3 class="mb-0">Registro</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <h6 class="heading-small text-muted mb-4">Datos del Alumno (A) Solicitante:</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Nombre</label>
+                    <input maxlength="255" type="text" id="input-username" class="form-control form-control-alternative"
+                      placeholder="Nombre" formControlName="name">
+                  </div>
+                  <p *ngIf="f.name.invalid && (f.name.touched || f.name.dirty) && f.name.value === '' || submitted && f.name.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Apellido</label>
+                    <input maxlength="255" type="text" id="input-last-name"
+                      class="form-control form-control-alternative" placeholder="Apellido" formControlName="lastName">
+                  </div>
+                  <p *ngIf="f.lastName.invalid && (f.lastName.touched || f.lastName.dirty) && f.lastName.value === '' || submitted && f.lastName.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">No. Identidad</label>
+                    <input maxlength="13" type="text" id="input-username" class="form-control form-control-alternative"
+                      placeholder="000000000000" formControlName="identidad">
+                  </div>
+                  <p *ngIf="f.identidad.invalid && (f.identidad.touched || f.identidad.dirty) && f.identidad.value !== ''"
+                    class="msg-error">
+                    No se permiten letras
+                  </p>
+                  <p *ngIf="f.identidad.invalid && (f.identidad.touched || f.identidad.dirty) && f.identidad.value === '' || submitted && f.identidad.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Sexo</label>
+                    <select formControlName="sex" id="input-sex" class="form-control form-control-alternative">
+                      <option value="" selected disabled hidden>Sexo</option>
+                      <option value="Femenino">Femenino</option>
+                      <option value="Masculino">Masculino</option>
+                    </select>
+                    <p *ngIf="f.sex.invalid && (f.sex.touched || f.sex.dirty) && f.sex.value === '' || submitted && f.sex.invalid"
+                      class="msg-error">
+                      * Requerido
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <!--  -->
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-date">Fecha de Nacimiento</label>
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <input class="form-control form-control-alternative" placeholder="Selecciona una fecha" name="dp"
+                        [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"
+                        formControlName="bornDate" [minDate]="{year: 1910, month: 1, day: 1}" />
+                    </div>
+                  </div>
+                  <p *ngIf="f.bornDate.invalid && (f.bornDate.touched || f.bornDate.dirty) && f.bornDate.value === '' || submitted && f.bornDate.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p>
+                  <p *ngIf="isInvalidYear" class="msg-error">
+                    * Fecha no permitida
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-discapacidad">Edad</label>
+                    <input id="input-age" class="form-control form-control-alternative" type="text" placeholder="Edad"
+                      formControlName="age">
+                    <p *ngIf="f.age.invalid && (f.age.touched || f.age.dirty) && f.age.value === '' || submitted && f.age.invalid"
+                      class="msg-error">
+                      * Requerido
+                    </p>
+                  </div>
+                </div>
+                <!--  -->
+              </div>
+              <hr class="my-4" />
+
+
+              <!-- Address -->
+              <h6 class="heading-small text-muted mb-4">Lugar de nacimiento</h6>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Departamento</label>
+                    <select formControlName="department" id="input-departmento"
+                      class="form-control form-control-alternative">
+                      <option value="" selected disabled hidden>Departamento</option>
+                      <option *ngFor="let state of states; let i = index" [value]="state.state_name">
+                        {{state.state_name}}
+                      </option>
+                    </select>
+                    <p *ngIf="f.department.invalid && (f.department.touched || f.department.dirty) && f.department.value === '' || submitted && f.department.invalid"
+                      class="msg-error">
+                      * Requerido
+                    </p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Municipio</label>
+                    <input id="input-municipality" class="form-control form-control-alternative" type="text"
+                      formControlName="municipality">
+                    <p *ngIf="f.municipality.invalid && (f.municipality.touched || f.municipality.dirty) && f.municipality.value === '' || submitted && f.municipality.invalid"
+                      class="msg-error">
+                      * Requerido
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Aldea</label>
+                    <input id="input-aldea" class="form-control form-control-alternative" type="text"
+                      formControlName="village">
+                    <p *ngIf="f.village.invalid && (f.village.touched || f.village.dirty) && f.village.value === '' || submitted && f.village.invalid"
+                      class="msg-error">
+                      * Requerido
+                    </p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-city">Barrio</label>
+                    <input type="text" id="input-barrio" class="form-control form-control-alternative"
+                      formControlName="barrio">
+                    <p *ngIf="f.barrio.invalid && (f.barrio.touched || f.barrio.dirty) && f.barrio.value === '' || submitted && f.barrio.invalid"
+                      class="msg-error">
+                      * Requerido
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Current Address -->
+              <h6 class="heading-small text-muted mb-4">Dirección Actual</h6>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Lugar donde reside</label>
+                    <input id="input-currentAddress" class="form-control form-control-alternative" type="text"
+                      formControlName="currentAddress">
+                    <p *ngIf="f.currentAddress.invalid && (f.currentAddress.touched || f.currentAddress.dirty) && f.currentAddress.value === '' || submitted && f.currentAddress.invalid"
+                      class="msg-error">
+                      * Requerido
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <hr class="my-4" />
+
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Telefono</label>
+                    <input maxlength="8" type="text" id="input-last-name" class="form-control form-control-alternative"
+                      placeholder="00000000" formControlName="phone">
+                  </div>
+                  <p *ngIf="f.phone.invalid && (f.phone.touched || f.phone.dirty) && f.phone.value !== ''"
+                    class="msg-error">
+                    No se permiten letras
+                  </p>
+                  <p *ngIf="f.phone.invalid && (f.phone.touched || f.phone.dirty) && f.phone.value === '' || submitted && f.phone.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Email</label>
+                    <input id="input-email" class="form-control form-control-alternative" type="email"
+                      placeholder="Email" formControlName="email">
+                    <p *ngIf="f.email.invalid && (f.email.touched || f.email.dirty) && f.email.value === '' || submitted && f.email.invalid"
+                      class="msg-error">
+                      * Requerido
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <hr class="my-4" />
+
+              <div class="row">
+                <div class="col-md-6">
+                  <h6 class="heading-small text-muted mb-4">Con que Pueblo se identifica:</h6>
+                  <div class="custom-control custom-radio mb-3">
+                    <input id="Lenca" class="custom-control-input" name="ethnicity" type="radio" value="Lenca" formControlName="ethnicity">
+                    <label class="custom-control-label" for="Lenca">Lenca</label>
+                  </div>
+                  <div class="custom-control custom-radio mb-3">
+                    <input id="Garifuna" class="custom-control-input" name="ethnicity" type="radio" value="Garifuna" formControlName="ethnicity">
+                    <label class="custom-control-label" for="Garifuna">Garifuna</label>
+                  </div>
+                  <div class="custom-control custom-radio mb-3">
+                    <input id="Tawahka" class="custom-control-input" name="ethnicity" type="radio" value="Tawahka" formControlName="ethnicity">
+                    <label class="custom-control-label" for="Tawahka">Tawahka</label>
+                  </div>
+                  <div class="custom-control custom-radio mb-3">
+                    <input id="Tolupanes" class="custom-control-input" name="ethnicity" type="radio" value="Tolupanes" formControlName="ethnicity">
+                    <label class="custom-control-label" for="Tolupanes">Tolupanes</label>
+                  </div>
+                  <div class="custom-control custom-radio mb-3">
+                    <input id="Mestizos" class="custom-control-input" name="ethnicity" type="radio" value="Mestizos" formControlName="ethnicity">
+                    <label class="custom-control-label" for="Mestizos">Mestizos</label>
+                  </div>
+                  <div class="custom-control custom-radio mb-3">
+                    <input id="Afro Hondureño" class="custom-control-input" name="ethnicity" type="radio" value="Afro Hondureño" formControlName="ethnicity">
+                    <label class="custom-control-label" for="Afro Hondureño">Afro Hondureño</label>
+                  </div>
+                  <div class="custom-control custom-radio mb-3">
+                    <input id="Chortis" class="custom-control-input" name="ethnicity" type="radio" value="Chortis" formControlName="ethnicity">
+                    <label class="custom-control-label" for="Chortis">Chortis</label>
+                  </div>
+                  <div class="custom-control custom-radio mb-3">
+                    <input id="Miskito" class="custom-control-input" name="ethnicity" type="radio" value="Miskito" formControlName="ethnicity">
+                    <label class="custom-control-label" for="Miskito">Miskito</label>
+                  </div>
+                  <div class="custom-control custom-radio mb-3">
+                    <input id="Nauhuat" class="custom-control-input" name="ethnicity" type="radio" value="Nauhuat" formControlName="ethnicity">
+                    <label class="custom-control-label" for="Nauhuat">Nauhuat</label>
+                  </div>
+                  <div class="custom-control custom-radio mb-3">
+                    <input id="Peach" class="custom-control-input" name="ethnicity" type="radio" value="Peach" formControlName="ethnicity">
+                    <label class="custom-control-label" for="Peach">Peach</label>
+                  </div>
+                  <p *ngIf="f.ethnicity.invalid && (f.ethnicity.touched || f.ethnicity.dirty) && f.ethnicity.value === '' || submitted && f.ethnicity.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <h6 class="heading-small text-muted mb-4">Grupo vulnerable al que pertenece:</h6>
+                  <ul formArrayName="vulnerableGroup" class="checkbox">
+                    <li [formGroupName]="i" *ngFor="let item of form.controls?.vulnerableGroup?.controls; let i = index">
+                      <input type="checkbox" formControlName="checked" /> {{ vulnerableGroup[i].name }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Estado Civil</label>
+                    <input id="input-estado-civil" class="form-control form-control-alternative" type="text" formControlName="civilStatus">
+                    <p *ngIf="f.civilStatus.invalid && (f.civilStatus.touched || f.civilStatus.dirty) && f.civilStatus.value === '' || submitted && f.civilStatus.invalid"
+                      class="msg-error">
+                      * Requerido
+                    </p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-city">Numero de hijos (si tiene)</label>
+                    <input type="number" maxlength="2" id="input-barrio" class="form-control form-control-alternative" formControlName="numberOfChildren">
+                  </div>
+                  <p *ngIf="f.numberOfChildren.invalid && (f.numberOfChildren.touched || f.numberOfChildren.dirty) && f.numberOfChildren.value !== ''" class="msg-error">
+                    No se permiten letras
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Centro Educativo -->
+            <hr class="my-4" />
+            <h6 class="heading-small text-muted mb-4">Centro Educativo donde el alumno realiza sus estudios</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Nombre del centro educativo</label>
+                    <input maxlength="255" type="text" id="input-username" class="form-control form-control-alternative"
+                      placeholder="" formControlName="educationalCenterName">
+                  </div>
+                  <p *ngIf="f.educationalCenterName.invalid && (f.educationalCenterName.touched || f.educationalCenterName.dirty) && f.educationalCenterName.value === '' || submitted && f.educationalCenterName.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Ubicación</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative"
+                      placeholder="" formControlName="educationalCenterAddress">
+                  </div>
+                  <p *ngIf="f.educationalCenterAddress.invalid && (f.educationalCenterAddress.touched || f.educationalCenterAddress.dirty) && f.educationalCenterAddress.value === '' || submitted && f.educationalCenterAddress.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Nivel Educativo</label>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative"
+                      placeholder="Bachillerato" formControlName="academicLevel">
+                  </div>
+                  <p *ngIf="f.academicLevel.invalid && (f.academicLevel.touched || f.academicLevel.dirty) && f.academicLevel.value === '' || submitted && f.academicLevel.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Indice Academico</label>
+                    <input maxlength="2" type="number" id="input-last-name" class="form-control form-control-alternative"
+                      placeholder="85" formControlName="grade">
+                  </div>
+                  <p *ngIf="f.grade.invalid && (f.grade.touched || f.grade.dirty) && f.grade.value === '' || submitted && f.grade.invalid"
+                    class="msg-error">
+                    * Requerido
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dato De los Padres/Tutores -->
+            <hr class="my-4" />
+            <h6 class="heading-small text-muted mb-4">Dato De los Padres/Tutores</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Nombre de la madre</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative"
+                      placeholder="" formControlName="motherName">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Nombre del Padre</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder=""
+                      formControlName="fatherName">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Numero de hijos (a)</label>
+                    <input type="number" id="input-last-name" class="form-control form-control-alternative" placeholder=""
+                      formControlName="numberOfChildrenFathers">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Nivel educativo de la Madre</label>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative"
+                      placeholder="" formControlName="educationalLevelMother">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Nivel educativo del Padre</label>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
+                      formControlName="educationalLevelFather">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Domicilio</label>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
+                      formControlName="fathersAddress">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Lugar de trabajo de la Madre</label>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
+                      formControlName="motherWork">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Lugar de trabajo del Padre</label>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
+                      formControlName="fatherWork">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Ingreso Mensual de la Familia L.</label>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
+                      formControlName="monthlyIncome">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Telefono</label>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
+                      formControlName="fathersPhone">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Observación</label>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
+                      formControlName="observation">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary my-4" [disabled]="loading">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

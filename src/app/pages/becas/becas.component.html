@@ -18,7 +18,7 @@
           </div>
           <div class="row align-items-center">
             <div class="col-8">
-              <h3 class="mb-0">Lista Personas Con Discapacidad</h3>
+              <h3 class="mb-0">Lista Personas Con Becas</h3>
             </div>
             <div class="col-4 text-right">
               <a class="btn btn-sm btn-primary" href="javascript:void(0)" (click)="generatePDF()">Planilla</a>
@@ -43,19 +43,19 @@
                 <th scope="col">Edad</th>
                 <th scope="col">Sexo</th>
                 <th scope="col">Telefono</th>
-                <th scope="col">Discapacidad</th>
                 <th scope="col">Departamento</th>
                 <th scope="col">Municipio</th>
                 <th scope="col">Aldea</th>
                 <th scope="col">Barrio</th>
-                <th scope="col">Identidad Persona a Cargo</th>
-                <th scope="col">Nombre Persona a Cargo</th>
-                <th scope="col">Telefono Persona a Cargo</th>
+                <th scope="col">Estado Civil</th>
+                <th scope="col">Nombre Centro Educativo</th>
+                <th scope="col">Grado Academico</th>
+                <th scope="col">Indice Academico</th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of discapacitados | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize">
+              <tr *ngFor="let item of becas | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize">
                 <th scope="row">
                   {{item.identidad}}
                 </th>
@@ -69,16 +69,13 @@
                   {{item.bornDate}}
                 </td>
                 <td>
-                  {{getAge(item.bornDate)}}
+                  {{item.age}}
                 </td>
                 <td>
                   {{item.sex}}
                 </td>
                 <td>
                   {{item.phone}}
-                </td>
-                <td>
-                  {{item.discapacidad}}
                 </td>
                 <td>
                   {{item.department}}
@@ -93,13 +90,16 @@
                   {{item.barrio}}
                 </td>
                 <td>
-                  {{item.identidadPersonInCharge}}
+                  {{item.civilStatus}}
                 </td>
                 <td>
-                  {{item.fullNamePersonInCharge}}
+                  {{item.educationalCenterName}}
                 </td>
                 <td>
-                  {{item.phonePersonInCharge}}
+                  {{item.academicLevel}}
+                </td>
+                <td>
+                  {{item.grade}}
                 </td>
                 <td class="text-right">
                   <div ngbDropdown placement="bottom-right">
@@ -118,7 +118,7 @@
         </div>
         <div class="card-footer py-4">
           <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize"
-            [boundaryLinks]="true" [collectionSize]="discapacitados?.length" [maxSize]="5">
+            [boundaryLinks]="true" [collectionSize]="becas?.length" [maxSize]="5">
             <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
           </ngb-pagination>
         </div>
