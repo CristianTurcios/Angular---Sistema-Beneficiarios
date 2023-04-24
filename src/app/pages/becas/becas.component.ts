@@ -87,7 +87,7 @@ export class BecasComponent implements OnInit {
       title: 'Lista Personas con Becas',
       useBom: true,
       noDownload: false,
-      headers: ['id', 'Identidad', 'Nombre', 'Apellido', 'Fecha de Nacimiento', 'Sexo', 'Edad', 'Email', 'Telefono', 'Departamento', 'Municipio', 'Aldea', 'Barrio', 'Direccion Actual', 'Discapacidad', 'Etnia', 'Grupo Vulnerable', 'Estado Civil', 'Numero de Hijos', 'Nombre Del Centro Educativo', 'Ubicacion', 'Nivel Educativo', 'Indice Academico', 'Nombre de la Madre', 'Nombre del Padre', 'Numero de Hijos Padres', 'Nivel Educativo de la Madre', 'Nivel Educativo del Padre', 'Domicilio', 'Lugar de Trabajo de la Madre', 'Lugar de Trabajo del Padre', 'Ingreso Mensual de la familia', 'Telefono Padres', 'Observación', 'Fecha Creacion', 'Fecha Edicion'],
+      headers: ['id', 'Identidad', 'Nombre', 'Apellido', 'Fecha de Nacimiento', 'Sexo', 'Edad', 'Email', 'Telefono', 'Departamento', 'Municipio', 'Aldea', 'Barrio', 'Direccion Actual', 'Etnia', 'Grupo Vulnerable', 'Estado Civil', 'Numero de Hijos', 'Nombre Del Centro Educativo', 'Ubicacion', 'Nivel Educativo', 'Indice Academico', 'Nombre de la Madre o Padre', 'Apellido de la Madre o Padre', 'Identidad Madre o Padre', 'Numero de Hijos Padres', 'Nivel Educativo de la Madre o Padre', 'Domicilio', 'Lugar de Trabajo de la Madre o Padre', 'Ingreso Mensual de la familia', 'Telefono Padres', 'Observación', 'Fecha Creacion', 'Fecha Edicion'],
       useHeader: false,
       nullToEmptyString: true,
     };
@@ -108,23 +108,21 @@ export class BecasComponent implements OnInit {
         village: elem.village,
         barrio: elem.barrio,
         currentAddress: elem.currentAddress,
-        disability: elem.disability,
         ethnicity: elem.ethnicity,
-        vulnerableGroup: elem.vulnerableGroup,
+        vulnerableGroup: this.getVulnerableGroup(elem.vulnerableGroup),
         civilStatus: elem.civilStatus,
         numberOfChildren: elem.numberOfChildren,
         educationalCenterName: elem.educationalCenterName,
         educationalCenterAddress: elem.educationalCenterAddress,
         academicLevel: elem.academicLevel,
         grade: elem.grade,
-        motherName: elem.motherName,
-        fatherName: elem.fatherName,
+        motherOrFatherName: elem.motherOrFatherName,
+        motherOrFatherLastName: elem.motherOrFatherLastName,
+        identidadMotherOrFather: elem.identidadMotherOrFather,
         numberOfChildrenFathers: elem.numberOfChildrenFathers,
-        educationalLevelMother: elem.educationalLevelMother,
-        educationalLevelFather: elem.educationalLevelFather,
+        educationalLevelMotherOrFather: elem.educationalLevelMotherOrFather,
         fathersAddress: elem.fathersAddress,
-        motherWork: elem.motherWork,
-        fatherWork: elem.fatherWork,
+        motherOrFatherWork: elem.motherOrFatherWork,
         monthlyIncome: elem.monthlyIncome,
         fathersPhone: elem.fathersPhone,
         observation: elem.observation,
@@ -264,5 +262,9 @@ export class BecasComponent implements OnInit {
 
       img.src = url;
     });
+  }
+
+  getVulnerableGroup(vulnerableGroup: any): void {
+    return vulnerableGroup.filter((item) => item.checked).map((item) => item.name).join(', ');
   }
 }

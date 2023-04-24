@@ -66,12 +66,12 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">No. Identidad</label>
-                    <input maxlength="13" type="text" id="input-username" class="form-control form-control-alternative"
+                    <input minlength="13" maxlength="13" type="text" id="input-username" class="form-control form-control-alternative"
                       placeholder="000000000000" formControlName="identidad">
                   </div>
                   <p *ngIf="f.identidad.invalid && (f.identidad.touched || f.identidad.dirty) && f.identidad.value !== ''"
                     class="msg-error">
-                    No se permiten letras
+                    Identidad debe tener 13 caracteres numericos, sin guiones
                   </p>
                   <p *ngIf="f.identidad.invalid && (f.identidad.touched || f.identidad.dirty) && f.identidad.value === '' || submitted && f.identidad.invalid"
                     class="msg-error">
@@ -119,7 +119,7 @@
                   <div class="form-group">
                     <label class="form-control-label" for="input-discapacidad">Edad</label>
                     <input id="input-age" class="form-control form-control-alternative" type="text" placeholder="Edad"
-                      formControlName="age">
+                      formControlName="age" minlength="2" maxlength="2">
                     <p *ngIf="f.age.invalid && (f.age.touched || f.age.dirty) && f.age.value === '' || submitted && f.age.invalid"
                       class="msg-error">
                       * Requerido
@@ -209,7 +209,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Telefono</label>
-                    <input maxlength="8" type="text" id="input-last-name" class="form-control form-control-alternative"
+                    <input minlength="8" maxlength="8" type="text" id="input-last-name" class="form-control form-control-alternative"
                       placeholder="00000000" formControlName="phone">
                   </div>
                   <p *ngIf="f.phone.invalid && (f.phone.touched || f.phone.dirty) && f.phone.value !== ''"
@@ -229,6 +229,10 @@
                     <p *ngIf="f.email.invalid && (f.email.touched || f.email.dirty) && f.email.value === '' || submitted && f.email.invalid"
                       class="msg-error">
                       * Requerido
+                    </p>
+
+                    <p *ngIf="f.email.invalid && (f.email.touched || f.email.dirty) && f.email.value !== ''" class="msg-error">
+                      Formato de correo invalido
                     </p>
                   </div>
                 </div>
@@ -359,12 +363,16 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Indice Academico</label>
-                    <input maxlength="2" type="number" id="input-last-name" class="form-control form-control-alternative"
-                      placeholder="85" formControlName="grade">
+                    <input minlength="2" maxlength="2" type="number" id="input-last-name" class="form-control form-control-alternative"
+                      placeholder="75" formControlName="grade">
                   </div>
                   <p *ngIf="f.grade.invalid && (f.grade.touched || f.grade.dirty) && f.grade.value === '' || submitted && f.grade.invalid"
                     class="msg-error">
                     * Requerido
+                  </p>
+
+                  <p *ngIf="f.grade.invalid && (f.grade.touched || f.grade.dirty) && f.grade.value !== ''" class="msg-error">
+                    El indice academico debe ser igual o mayor a 75
                   </p>
                 </div>
               </div>
@@ -377,16 +385,36 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-username">Nombre de la madre</label>
+                    <label class="form-control-label" for="input-username">Nombre de Madre o Padre</label>
                     <input type="text" id="input-username" class="form-control form-control-alternative"
-                      placeholder="" formControlName="motherName">
+                      placeholder="" formControlName="motherOrFatherName">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-username">Nombre del Padre</label>
+                    <label class="form-control-label" for="input-username">Apellido Madre o Padre</label>
                     <input type="text" id="input-username" class="form-control form-control-alternative" placeholder=""
-                      formControlName="fatherName">
+                      formControlName="motherOrFatherLastName">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Identidad Madre o Padre</label>
+                    <input minlength="13" maxlength="13" type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="0000000000000"
+                      formControlName="identidadMotherOrFather">
+                  </div>
+                  <p *ngIf="f.identidadMotherOrFather.invalid && (f.identidadMotherOrFather.touched || f.identidadMotherOrFather.dirty) && f.identidadMotherOrFather.value !== ''"
+                    class="msg-error">
+                    Identidad debe tener 13 caracteres numericos, sin guiones
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Nivel educativo de la Madre o Padre</label>
+                    <input type="text" id="input-last-name" class="form-control form-control-alternative"
+                      placeholder="" formControlName="educationalLevelMotherOrFather">
                   </div>
                 </div>
               </div>
@@ -398,22 +426,7 @@
                       formControlName="numberOfChildrenFathers">
                   </div>
                 </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-last-name">Nivel educativo de la Madre</label>
-                    <input type="text" id="input-last-name" class="form-control form-control-alternative"
-                      placeholder="" formControlName="educationalLevelMother">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-last-name">Nivel educativo del Padre</label>
-                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
-                      formControlName="educationalLevelFather">
-                  </div>
-                </div>
+                
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Domicilio</label>
@@ -425,20 +438,11 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-last-name">Lugar de trabajo de la Madre</label>
+                    <label class="form-control-label" for="input-last-name">Lugar de trabajo de la Madre o Padre</label>
                     <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
-                      formControlName="motherWork">
+                      formControlName="motherOrFatherWork">
                   </div>
                 </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-last-name">Lugar de trabajo del Padre</label>
-                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
-                      formControlName="fatherWork">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Ingreso Mensual de la Familia L.</label>
@@ -446,10 +450,12 @@
                       formControlName="monthlyIncome">
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-last-name">Telefono</label>
-                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
+                    <input minlength="8" maxlength="8" type="text" id="input-last-name" class="form-control form-control-alternative" placeholder=""
                       formControlName="fathersPhone">
                   </div>
                 </div>

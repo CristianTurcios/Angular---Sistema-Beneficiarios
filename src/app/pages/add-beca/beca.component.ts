@@ -69,6 +69,7 @@ export class BecaComponent implements OnInit {
     this.form = this.formBuilder.group({
       identidad: ['', Validators.compose([
         Validators.required,
+        Validators.minLength(13),
         Validators.maxLength(13),
         Validators.pattern(/^\d+$/)
       ])],
@@ -77,6 +78,7 @@ export class BecaComponent implements OnInit {
       bornDate: ['', Validators.required],
       phone: ['', Validators.compose([
         Validators.required,
+        Validators.minLength(8),
         Validators.maxLength(8),
         Validators.pattern(/^\d+$/)
       ])],
@@ -87,6 +89,7 @@ export class BecaComponent implements OnInit {
       sex: ['', Validators.required],
       age: ['', Validators.compose([
         Validators.required,
+        Validators.minLength(2),
         Validators.maxLength(2),
       ])],
       email: ['', Validators.compose([
@@ -103,19 +106,25 @@ export class BecaComponent implements OnInit {
       academicLevel: ['', Validators.required],
       grade: ['', Validators.compose([
         Validators.required,
+        Validators.minLength(2),
         Validators.maxLength(2),
+        Validators.max(100), 
+        Validators.min(75)
       ])],
-      motherName: [''],
-      fatherName: [''],
+      motherOrFatherName: [''],
+      motherOrFatherLastName: [''],
+      identidadMotherOrFather: ['', Validators.compose([
+        Validators.minLength(13),
+        Validators.maxLength(13),
+        Validators.pattern(/^\d+$/)
+      ])],
       numberOfChildrenFathers: [0, Validators.compose([Validators.maxLength(2)])],
-      educationalLevelMother: [''],
-      educationalLevelFather: ['', Validators.required],
+      educationalLevelMotherOrFather: [''],
       fathersAddress: [''],
-      motherWork: [''],
-      fatherWork: [''],
+      motherOrFatherWork: [''],
       monthlyIncome: [''],
       fathersPhone: ['', Validators.compose([
-        Validators.required,
+        Validators.minLength(8),
         Validators.maxLength(8),
         Validators.pattern(/^\d+$/)
       ])],
@@ -165,14 +174,13 @@ export class BecaComponent implements OnInit {
           educationalCenterAddress: res.educationalCenterAddress,
           academicLevel: res.academicLevel,
           grade: res.grade,
-          motherName: res.motherName,
-          fatherName: res.fatherName,
+          motherOrFatherName: res.motherOrFatherName,
+          motherOrFatherLastName: res.motherOrFatherLastName,
           numberOfChildrenFathers: res.numberOfChildrenFathers,
-          educationalLevelMother: res.educationalLevelMother,
-          educationalLevelFather: res.educationalLevelFather,
+          educationalLevelMotherOrFather: res.educationalLevelMotherOrFather,
+          identidadMotherOrFather: res.identidadMotherOrFather,
           fathersAddress: res.fathersAddress,
-          motherWork: res.motherWork,
-          fatherWork: res.fatherWork,
+          motherOrFatherWork: res.motherOrFatherWork,
           monthlyIncome: res.monthlyIncome,
           fathersPhone: res.fathersPhone,
           observation: res.observation,
