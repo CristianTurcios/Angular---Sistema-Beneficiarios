@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, first, tap } from 'rxjs/operators';
 import { BecasService } from 'src/app/services/becas.service';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import pdfmake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { fromEvent, timer } from 'rxjs';
 pdfmake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -23,6 +24,7 @@ export class BecasComponent implements OnInit {
   page = 0;
   pageSize = 10;
   collectionSize: number = 0;
+  @ViewChild('input') input: ElementRef;
 
   constructor(
     private _router: Router,
@@ -30,6 +32,18 @@ export class BecasComponent implements OnInit {
   ) { }
 
   ngOnInit() {}
+
+  ngAfterViewInit() {    
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        filter(Boolean),
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap((text) => {
+          this.search(this.input.nativeElement.value)
+        })
+      ).subscribe();
+  }
 
   getBecasList(page: number = 0, pageSize: number = 10): void {
     this.becasService.get(page, pageSize).pipe(first()).subscribe({

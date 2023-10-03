@@ -23,7 +23,7 @@
             <form>
               <div class="form-group mt-4">
                 <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
-                  (input)="search($event.target.value)" placeholder="Buscar por email..."/>
+                  #input placeholder="Buscar por email..."/>
               </div>
             </form>
           </div>

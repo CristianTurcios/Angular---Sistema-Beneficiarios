@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, first, tap } from 'rxjs/operators';
 import { DiscapacitadosService } from 'src/app/services/discapacitados.service';
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 import pdfmake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { fromEvent } from 'rxjs';
 pdfmake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -24,6 +25,7 @@ export class DiscapacitadosComponent implements OnInit {
   page = 0;
   pageSize = 10;
   collectionSize: number = 0;
+  @ViewChild('input') input: ElementRef;
 
   constructor(
     private _router: Router,
@@ -31,6 +33,18 @@ export class DiscapacitadosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        filter(Boolean),
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap((text) => {
+          this.search(this.input.nativeElement.value)
+        })
+      ).subscribe();
   }
 
   getDiscapacitadosList(page: number = 0, pageSize: number = 10): void {

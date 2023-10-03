@@ -30,7 +30,7 @@
             <form>
               <div class="form-group mt-4">
                 <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
-                  (input)="search($event.target.value)" placeholder="Buscar por identidad..." />
+                  #input placeholder="Buscar por identidad..." />
               </div>
             </form>
           </div>
