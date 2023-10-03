@@ -34,12 +34,6 @@
               </div>
             </form>
           </div>
-          <!--  -->
-
-          <!-- <h3 class="mb-0">Beneficiarios</h3>
-          <div class="text-right">
-            <button type="button" class="btn btn-primary my-4">Exportar</button>
-          </div> -->
         </div>
         <div class="table-responsive">
           <table class="table align-items-center table-flush">
@@ -60,19 +54,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of beneficiarios | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize">
-                <!-- {{item | json}} -->
+              <tr *ngFor="let item of beneficiarios">
                 <th scope="row">
-                  <!-- <div class="media align-items-center"> -->
-                  <!-- <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
-                      <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                    </a>
-                    <div class="media-body">
-                      <span class="mb-0 text-sm">{{item.identidad}} </span>
-                    </div>
-                  </div> -->
                   {{item.identidad}}
-
                 </th>
                 <td>
                   {{item.name}}
@@ -91,7 +75,6 @@
                 </td>
                 <td>
                   {{item.phone}}
-
                 </td>
                 <td>
                   {{item.department}}
@@ -121,8 +104,8 @@
           </table>
         </div>
         <div class="card-footer py-4">
-          <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize"
-            [boundaryLinks]="true" [collectionSize]="beneficiarios?.length" [maxSize]="5">
+          <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true"
+            [collectionSize]="collectionSize" [maxSize]="5" (pageChange)="pageChange();">
             <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
           </ngb-pagination>
         </div>

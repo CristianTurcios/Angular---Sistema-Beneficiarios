@@ -12,8 +12,8 @@ export class DiscapacitadosService {
     private http: HttpClient,
   ) {}
 
-  get(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/discapacitados`);
+  get(page: number = 0, size: number = 10): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/discapacitados?page=${page}&size=${size}`);
   }
 
   getById(id: number): Observable<any> {
@@ -30,5 +30,9 @@ export class DiscapacitadosService {
 
   delete(id: number): Observable<any> {
     return this.http.delete(`${environment.apiUrl}/discapacitados/${id}`,);
+  }
+
+  search(searchTerm: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/discapacitados?id=${searchTerm}`);
   }
 }

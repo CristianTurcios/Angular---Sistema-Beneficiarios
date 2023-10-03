@@ -24,13 +24,12 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.getUsersList(this.page, this.pageSize);
   }
 
   getUsersList(page: number, pageSize: number): void {
     this.usersService.get(page, pageSize).pipe(first()).subscribe({
       next: (res) => {
-        this.users = res.users;
+        this.users = res.rows;
         this.allUsers = this.users;
         this.collectionSize = res.totalItems;
       },
@@ -42,6 +41,17 @@ export class UsersComponent implements OnInit {
   }
 
   search(value: string): void {
-    this.users = this.allUsers.filter((val) => val.email.toLowerCase().includes(value));
+    if(value) {
+      this.usersService.search(value.toLowerCase()).pipe(first()).subscribe({
+        next: (res) => {
+          this.users = res.users;
+          this.allUsers = this.users;
+          this.collectionSize = res.totalItems;
+        },
+      });
+
+    } else {
+      this.getUsersList(this.page - 1, this.pageSize);
+    }
   }
 }

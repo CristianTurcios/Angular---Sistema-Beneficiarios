@@ -18,11 +18,12 @@ export class DiscapacitadosComponent implements OnInit {
   success: boolean = false;
   error: boolean = false;
   errorMessage: string = '';
-  page = 1;
-  pageSize = 10;
   headers: any;
   countries: any;
   searchTerm: string;
+  page = 0;
+  pageSize = 10;
+  collectionSize: number = 0;
 
   constructor(
     private _router: Router,
@@ -30,21 +31,34 @@ export class DiscapacitadosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getDiscapacitadosList();
   }
 
-
-  getDiscapacitadosList(): void {
-    this.discapacitadosService.get().pipe(first()).subscribe({
+  getDiscapacitadosList(page: number = 0, pageSize: number = 10): void {
+    this.discapacitadosService.get(page, pageSize).pipe(first()).subscribe({
       next: (res) => {
-        this.discapacitados = res;
+        this.discapacitados = res.rows;
         this.allDiscapacitados = this.discapacitados;
+        this.collectionSize = res.totalItems;
       },
     });
   }
 
+  pageChange(): void {
+    this.getDiscapacitadosList(this.page - 1, this.pageSize);
+  }
+
   search(value: string): void {
-    this.discapacitados = this.allDiscapacitados.filter((val) => val.identidad.toLowerCase().includes(value));
+    if (value) {
+      this.discapacitadosService.search(value.toLowerCase()).pipe(first()).subscribe({
+        next: (res) => {
+          this.discapacitados = res.rows;
+          this.allDiscapacitados = this.discapacitados;
+          this.collectionSize = res.totalItems;
+        },
+      });
+    } else {
+      this.getDiscapacitadosList(this.page - 1, this.pageSize);
+    }
   }
 
   getAge(userAge): number {

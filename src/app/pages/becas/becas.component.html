@@ -55,7 +55,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of becas | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize">
+              <tr *ngFor="let item of becas">
                 <th scope="row">
                   {{item.identidad}}
                 </th>
@@ -117,8 +117,8 @@
           </table>
         </div>
         <div class="card-footer py-4">
-          <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize"
-            [boundaryLinks]="true" [collectionSize]="becas?.length" [maxSize]="5">
+          <ngb-pagination class="d-flex justify-content-end" [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true"
+            [collectionSize]="collectionSize" [maxSize]="5" (pageChange)="pageChange();">
             <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
           </ngb-pagination>
         </div>

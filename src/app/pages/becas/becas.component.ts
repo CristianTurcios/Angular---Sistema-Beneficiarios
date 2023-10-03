@@ -18,31 +18,45 @@ export class BecasComponent implements OnInit {
   success: boolean = false;
   error: boolean = false;
   errorMessage: string = '';
-  page = 1;
-  pageSize = 10;
   headers: any;
   searchTerm: string;
+  page = 0;
+  pageSize = 10;
+  collectionSize: number = 0;
 
   constructor(
     private _router: Router,
     private becasService: BecasService
   ) { }
 
-  ngOnInit() {
-    this.getBecasList();
-  }
+  ngOnInit() {}
 
-  getBecasList(): void {
-    this.becasService.get().pipe(first()).subscribe({
+  getBecasList(page: number = 0, pageSize: number = 10): void {
+    this.becasService.get(page, pageSize).pipe(first()).subscribe({
       next: (res) => {
-        this.becas = res;
+        this.becas = res.rows;
         this.allBecas = this.becas;
+        this.collectionSize = res.totalItems;
       },
     });
   }
 
+  pageChange(): void {
+    this.getBecasList(this.page - 1, this.pageSize);
+  }
+
   search(value: string): void {
-    this.becas = this.allBecas.filter((val) => val.identidad.toLowerCase().includes(value));
+    if (value) {
+      this.becasService.search(value.toLowerCase()).pipe(first()).subscribe({
+        next: (res) => {
+          this.becas = res.rows;
+          this.allBecas = this.becas;
+          this.collectionSize = res.totalItems;
+        },
+      });
+    } else {
+      this.getBecasList(this.page - 1, this.pageSize);
+    }
   }
 
   getAge(userAge): number {

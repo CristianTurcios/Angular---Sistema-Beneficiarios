@@ -13,8 +13,8 @@ export class BecasService {
 
   ) { }
 
-  get(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/becas`);
+  get(page: number = 0, size: number = 10): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/becas?page=${page}&size=${size}`);
   }
 
   getById(id: number): Observable<any> {
@@ -31,5 +31,9 @@ export class BecasService {
 
   delete(id: number): Observable<any> {
     return this.http.delete(`${environment.apiUrl}/becas/${id}`,);
+  }
+
+  search(searchTerm: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/becas?id=${searchTerm}`);
   }
 }

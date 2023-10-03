@@ -19,4 +19,8 @@ export class UsersService {
   getById(id: number): Observable<any> {
     return this.http.get(`${environment.apiUrl}/users/${id}`);
   }
+
+  search(searchTerm: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/users?email=${searchTerm}`);
+  }
 }

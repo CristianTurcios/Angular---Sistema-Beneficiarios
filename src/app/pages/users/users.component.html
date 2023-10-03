@@ -38,8 +38,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of users | listFilter: searchTerm : 'email'">
-              <!-- <tr *ngFor="let item of users | listFilter: searchTerm : 'email' | slice: (page-1) * pageSize : page * pageSize"> -->
+              <tr *ngFor="let item of users">
                 <td scope="row">{{item.email}}</td>
                 <td >{{item.firstName}}</td>
                 <td>{{item.lastName}}</td>

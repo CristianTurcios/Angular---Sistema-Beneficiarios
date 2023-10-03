@@ -18,11 +18,12 @@ export class TablesComponent implements OnInit {
   success: boolean = false;
   error: boolean = false;
   errorMessage: string = '';
-  page = 1;
-  pageSize = 10;
   headers: any;
   countries: any;
   searchTerm: string;
+  page = 0;
+  pageSize = 10;
+  collectionSize: number = 0;
 
   constructor(
     private _router: Router,
@@ -30,22 +31,34 @@ export class TablesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getBeneficiariosList();
   }
 
-
-  getBeneficiariosList(): void {
-    this.beneficiariosService.get().pipe(first()).subscribe({
+  getBeneficiariosList(page: number = 0, pageSize: number = 10): void {
+    this.beneficiariosService.get(page, pageSize).pipe(first()).subscribe({
       next: (res) => {
-        this.beneficiarios = res;
+        this.beneficiarios = res.rows;
         this.allBeneficiarios = this.beneficiarios;
-
+        this.collectionSize = res.totalItems;
       },
     });
   }
 
+  pageChange(): void {
+    this.getBeneficiariosList(this.page - 1, this.pageSize);
+  }
+
   search(value: string): void {
-    this.beneficiarios = this.allBeneficiarios.filter((val) => val.identidad.toLowerCase().includes(value));
+    if (value) {
+      this.beneficiariosService.search(value.toLowerCase()).pipe(first()).subscribe({
+        next: (res) => {
+          this.beneficiarios = res.rows;
+          this.allBeneficiarios = this.beneficiarios;
+          this.collectionSize = res.totalItems;
+        },
+      });
+    } else {
+      this.getBeneficiariosList(this.page - 1, this.pageSize);
+    }
   }
 
   getAge(userAge): number {
