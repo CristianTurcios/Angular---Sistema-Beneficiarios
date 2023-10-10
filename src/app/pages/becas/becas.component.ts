@@ -120,45 +120,53 @@ export class BecasComponent implements OnInit {
       nullToEmptyString: true,
     };
 
-    const ordered = this.becas.map((elem) => {
-      return {
-        id: elem.id,
-        identidad: elem.identidad,
-        name: elem.name,
-        lastName: elem.lastName,
-        bornDate: elem.bornDate,
-        sex: elem.sex,
-        age: elem.age,
-        email: elem.email,
-        phone: elem.phone,
-        department: elem.department,
-        municipality: elem.municipality,
-        village: elem.village,
-        barrio: elem.barrio,
-        currentAddress: elem.currentAddress,
-        ethnicity: elem.ethnicity,
-        vulnerableGroup: this.getVulnerableGroup(elem.vulnerableGroup),
-        civilStatus: elem.civilStatus,
-        numberOfChildren: elem.numberOfChildren,
-        educationalCenterName: elem.educationalCenterName,
-        educationalCenterAddress: elem.educationalCenterAddress,
-        academicLevel: elem.academicLevel,
-        grade: elem.grade,
-        motherOrFatherName: elem.motherOrFatherName,
-        motherOrFatherLastName: elem.motherOrFatherLastName,
-        identidadMotherOrFather: elem.identidadMotherOrFather,
-        numberOfChildrenFathers: elem.numberOfChildrenFathers,
-        educationalLevelMotherOrFather: elem.educationalLevelMotherOrFather,
-        fathersAddress: elem.fathersAddress,
-        motherOrFatherWork: elem.motherOrFatherWork,
-        monthlyIncome: elem.monthlyIncome,
-        fathersPhone: elem.fathersPhone,
-        observation: elem.observation,
-        createdAt: elem.createdAt,
-        updatedAt: elem.updatedAt
+    this.becasService.report().pipe(first()).subscribe({
+      next: (res) => {
+        const ordered = res.map((elem) => {
+          return {
+            id: elem.id,
+            identidad: elem.identidad,
+            name: elem.name,
+            lastName: elem.lastName,
+            bornDate: elem.bornDate,
+            sex: elem.sex,
+            age: elem.age,
+            email: elem.email,
+            phone: elem.phone,
+            department: elem.department,
+            municipality: elem.municipality,
+            village: elem.village,
+            barrio: elem.barrio,
+            currentAddress: elem.currentAddress,
+            ethnicity: elem.ethnicity,
+            vulnerableGroup: this.getVulnerableGroup(elem.vulnerableGroup),
+            civilStatus: elem.civilStatus,
+            numberOfChildren: elem.numberOfChildren,
+            educationalCenterName: elem.educationalCenterName,
+            educationalCenterAddress: elem.educationalCenterAddress,
+            academicLevel: elem.academicLevel,
+            grade: elem.grade,
+            motherOrFatherName: elem.motherOrFatherName,
+            motherOrFatherLastName: elem.motherOrFatherLastName,
+            identidadMotherOrFather: elem.identidadMotherOrFather,
+            numberOfChildrenFathers: elem.numberOfChildrenFathers,
+            educationalLevelMotherOrFather: elem.educationalLevelMotherOrFather,
+            fathersAddress: elem.fathersAddress,
+            motherOrFatherWork: elem.motherOrFatherWork,
+            monthlyIncome: elem.monthlyIncome,
+            fathersPhone: elem.fathersPhone,
+            observation: elem.observation,
+            createdAt: elem.createdAt,
+            updatedAt: elem.updatedAt
+          }
+        }).sort((prev, post) => prev.id > post.id ? 1 : -1);
+        new AngularCsv(ordered, `Lista Personas Con Becas - ${new Date().toLocaleDateString()}`, options);
+
+      },
+      error: (err) => {
+        console.log('error', err);
       }
-    }).sort((prev, post) => prev.id > post.id ? 1 : -1);
-    new AngularCsv(ordered, `Lista Personas Con Becas - ${new Date().toLocaleDateString()}`, options);
+    });
   }
 
   generatePDF() {
