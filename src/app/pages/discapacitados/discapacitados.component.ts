@@ -122,28 +122,36 @@ export class DiscapacitadosComponent implements OnInit {
       nullToEmptyString: true,
     };
 
-    const ordered = this.discapacitados.map((elem) => {
-      return {
-        id: elem.id,
-        identidad: elem.identidad,
-        name: elem.name,
-        lastName: elem.lastName,
-        bornDate: elem.bornDate,
-        sex: elem.sex,
-        phone: elem.phone,
-        discapacidad: elem.discapacidad,
-        department: elem.department,
-        municipality: elem.municipality,
-        village: elem.village,
-        barrio: elem.barrio,
-        identidadPersonInCharge: elem.identidadPersonInCharge,
-        fullNamePersonInCharge: elem.fullNamePersonInCharge,
-        phonePersonInCharge: elem.phonePersonInCharge,
-        createdAt: elem.createdAt,
-        updatedAt: elem.updatedAt
+    this.discapacitadosService.report().pipe(first()).subscribe({
+      next: (res) => {
+        const ordered = res.map((elem) => {
+          return {
+            id: elem.id,
+            identidad: elem.identidad,
+            name: elem.name,
+            lastName: elem.lastName,
+            bornDate: elem.bornDate,
+            sex: elem.sex,
+            phone: elem.phone,
+            discapacidad: elem.discapacidad,
+            department: elem.department,
+            municipality: elem.municipality,
+            village: elem.village,
+            barrio: elem.barrio,
+            identidadPersonInCharge: elem.identidadPersonInCharge,
+            fullNamePersonInCharge: elem.fullNamePersonInCharge,
+            phonePersonInCharge: elem.phonePersonInCharge,
+            createdAt: elem.createdAt,
+            updatedAt: elem.updatedAt
+          }
+        }).sort((prev, post) => prev.id > post.id ? 1 : -1);
+        new AngularCsv(ordered, `Lista Personas Con Discapacidad - ${new Date().toLocaleDateString()}`, options);
+
+      },
+      error: (err) => {
+        console.log('error', err);
       }
-    }).sort((prev, post) => prev.id > post.id ? 1 : -1);
-    new AngularCsv(ordered, `Lista Personas Con Discapacidad - ${new Date().toLocaleDateString()}`, options);
+    }); 
   }
 
   generatePDF() {

@@ -35,4 +35,8 @@ export class DiscapacitadosService {
   search(searchTerm: string): Observable<any> {
     return this.http.get(`${environment.apiUrl}/discapacitados?id=${searchTerm}`);
   }
+
+  report(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/discapacitados/report`);
+  }
 }

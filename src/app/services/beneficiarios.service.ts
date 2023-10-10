@@ -35,4 +35,8 @@ export class BeneficiariosService {
   search(searchTerm: string): Observable<any> {
     return this.http.get(`${environment.apiUrl}/beneficiarios?id=${searchTerm}`);
   }
+  
+  report(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/beneficiarios/report`);
+  }
 }

@@ -122,24 +122,32 @@ export class TablesComponent implements OnInit {
       nullToEmptyString: true,
     };
 
-    const ordered = this.beneficiarios.map((elem) => {
-      return {
-        id: elem.id,
-        identidad: elem.identidad,
-        name: elem.name,
-        lastName: elem.lastName,
-        bornDate: elem.bornDate,
-        sex: elem.sex,
-        phone: elem.phone,
-        department: elem.department,
-        municipality: elem.municipality,
-        village: elem.village,
-        barrio: elem.barrio,
-        createdAt: elem.createdAt,
-        updatedAt: elem.updatedAt
+    this.beneficiariosService.report().pipe(first()).subscribe({
+      next: (res) => {
+        const ordered = res.map((elem) => {
+          return {
+            id: elem.id,
+            identidad: elem.identidad,
+            name: elem.name,
+            lastName: elem.lastName,
+            bornDate: elem.bornDate,
+            sex: elem.sex,
+            phone: elem.phone,
+            department: elem.department,
+            municipality: elem.municipality,
+            village: elem.village,
+            barrio: elem.barrio,
+            createdAt: elem.createdAt,
+            updatedAt: elem.updatedAt
+          }
+        }).sort((prev, post) => prev.id > post.id ? 1 : -1);
+        new AngularCsv(ordered, `Lista Beneficiarios - ${new Date().toLocaleDateString()}`, options);
+
+      },
+      error: (err) => {
+        console.log('error', err);
       }
-    }).sort((prev, post) => prev.id > post.id ? 1 : -1);
-    new AngularCsv(ordered, `Lista Beneficiarios - ${new Date().toLocaleDateString()}`, options);
+    })
   }
 
   generatePDF() {
